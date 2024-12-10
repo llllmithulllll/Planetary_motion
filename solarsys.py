@@ -8,7 +8,7 @@ M_sun = 1.989e30  # Mass of the Sun (kg)
 M_earth = 5.972e24  # Mass of Earth (kg)
 M_mercury = 3.30104e23  # Mass of Mercury (kg)
 M_venus=4.867e24 # Mass of Venus
-
+M_mars=6.4171e23 #Mass of Mercury
 #initial Distance and velocity
 AU = 1.496e11  # 1 Astronomical Unit (meters)
 dt = 60 * 60  # Time step (1 hour in seconds)
@@ -33,6 +33,13 @@ y_venus=0
 vx_venus=0
 vy_venus=35.02e3
 
+#Mars
+x_mars=1.524*AU
+y_mars=0
+vx_mars=0
+vy_mars=24.07e3
+
+
 #scsreen dimenstions
 WIDTH,HEIGHT=1280,720
 CENTER=(WIDTH//2,HEIGHT//2)
@@ -54,8 +61,8 @@ venus_orbit_x,venus_orbit_y=[],[]
 mercury_position_x,mercury_position_y=[],[]
 mercury_orbit_x,mercury_orbit_y=[],[]
 
-moon_position_x,moon_position_y=[],[]
-moon_orbit_x,moon_orbit_y=[],[]
+mars_position_x,mars_position_y=[],[]
+mars_orbit_x,mars_orbit_y=[],[]
 #Total time simulation (1 years)
 total_time=365*10*24*60*60 # 1  years in seconds
 dt_base=60*60 # 1hour
@@ -64,7 +71,21 @@ dt=dt_base*dt_factor
 num_steps=total_time//dt
 #simulation loop to calculate position
 for i in range(num_steps):
-
+    #MArs
+    r_mars=np.sqrt(x_mars**2+y_mars**2)
+    F_mars=G*M_mars*M_sun/r_mars**2
+    Fx_mars=-F_mars*(x_mars/r_mars)
+    Fy_mars=-F_mars*(y_mars/r_mars)
+    ax_mars=Fx_mars/M_mars
+    ay_mars=Fy_mars/M_mars
+    vx_mars+=ax_mars*dt
+    vy_mars+=ay_mars*dt
+    x_mars+=vx_mars*dt
+    y_mars+=vy_mars*dt
+    mars_position_x.append(x_mars)
+    mars_position_y.append(y_mars)
+    mars_orbit_x.append(x_mars)
+    mars_orbit_y.append(y_mars)
     #Earth 
     r_earth=np.sqrt(x_earth**2+y_earth**2)
     F_earth=G*M_earth*M_sun/r_earth**2
@@ -116,6 +137,7 @@ for i in range(num_steps):
     mercury_orbit_y.append(y_mercury)
 
 
+
 #Visualization setup
 running=True
 frame=0
@@ -129,6 +151,8 @@ orbit_color_venus=(225,225,225)
 orbit_color_earth = (0, 255, 0)
 orbit_color_mercury = (255, 0, 0)
 star_color=(225,225,225)
+orbit_color_mars=(225,145,123)
+mars_color=(225,224,223)
 
 # Scaling factor
 scale = 1e-9
@@ -152,6 +176,16 @@ while running:
     # draw stars 
     for star in stars:
         pygame.draw.circle(screen, star_color, (star[0], star[1]), star[2])
+
+    #Draw Mars Orbit
+    #Draw Mars Orbit
+    for i in range(1,len(mars_orbit_x)):
+    # Access elements of the tuple using indexing
+        x1 = int(CENTER[0] + mars_orbit_x[i-1] * scale)  # X-coordinate of previous point
+        y1 = int(CENTER[1] + mars_orbit_y[i-1] * scale)  # Y-coordinate of previous point
+        x2 = int(CENTER[0] + mars_orbit_x[i] * scale)    # X-coordinate of current point
+        y2 = int(CENTER[1] + mars_orbit_y[i] * scale)    # Y-coordinate of current point
+        pygame.draw.line(screen,orbit_color_mars,(x1,y1),(x2,y2),1)
     # Draw Earth's orbit
     for i in range(1, len(earth_orbit_x)):
         pygame.draw.line(screen, orbit_color_earth, 
@@ -169,6 +203,11 @@ while running:
                          (int(CENTER[0] + venus_orbit_x[i-1] * scale), int(CENTER[1] + venus_orbit_y[i-1] * scale)),
                          (int(CENTER[0] + venus_orbit_x[i] * scale), int(CENTER[1] + venus_orbit_y[i] * scale)), 1)
 
+    #Draw Mars
+    if frame < len(mars_position_x):
+        mars_x = int(CENTER[0] + mars_position_x[frame] * scale)
+        mars_y = int(CENTER[1] + mars_position_y[frame] * scale)
+        pygame.draw.circle(screen, mars_color, (mars_x, mars_y), 10)
     # Draw Earth
     if frame < len(earth_position_x):
         earth_x = int(CENTER[0] + earth_position_x[frame] * scale)
