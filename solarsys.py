@@ -6,7 +6,7 @@ import random
 G = 6.67430e-11  # Gravitational Constant
 M_sun = 1.989e30  # Mass of the Sun (kg)
 M_earth = 5.972e24  # Mass of Earth (kg)
-M_mercury = 3.30104e23  # Mass of Mercury (kg)
+M_mercury= 3.30104e23  # Mass of Mercury (kg)
 M_venus=4.867e24 # Mass of Venus
 M_mars=6.4171e23 #Mass of Mercury
 #initial Distance and velocity
