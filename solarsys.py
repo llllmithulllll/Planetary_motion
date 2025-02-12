@@ -63,6 +63,8 @@ mercury_orbit_x,mercury_orbit_y=[],[]
 
 mars_position_x,mars_position_y=[],[]
 mars_orbit_x,mars_orbit_y=[],[]
+
+
 #Total time simulation (1 years)
 total_time=365*10*24*60*60 # 1  years in seconds
 dt_base=60*60 # 1hour
