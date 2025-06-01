@@ -1,6 +1,6 @@
 # Solar System Orbit Simulation
 
-<img src="https://github.com/user-attachments/assets/6977e8e2-b74e-4091-8757-7dd53c89fa74" alt="system" width="300" height="200">
+<img src="https://github.com/user-attachments/assets/6977e8e2-b74e-4091-8757-7dd53c89fa74" alt="system" width="1280" height="720">
 
 
 ## Introduction
