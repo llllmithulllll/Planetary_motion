@@ -76,6 +76,11 @@ You can modify the simulation parameters in the Python script:
 ---
 
 Maths Used
+<img src = "https://github.com/user-attachments/assets/9293d054-6849-4e84-9242-f8c17ec65c01" alt="img 1" >
+
+<umg src = "https://github.com/user-attachments/assets/9f4dad59-d347-4f29-a6be-7a0b45ab6108" alt="img 2" >
+
+
 
 ## Credits
 
